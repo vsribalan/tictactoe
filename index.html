@@ -1,0 +1,175 @@
+<html>
+<style>
+    td {
+        height: 90px;
+        width: 90px;
+        background-color: #4CAF50;
+        /* Green */
+        border: none;
+        color: white;
+        display: inline-block;
+        margin: 4px 2px;
+    }
+    button {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+<script>
+    flag = true;
+    inc = 0;
+    let clickedOnce = "";
+    var b1 = b2 = b3 = b4 = b5 = b6 = b7 = b8 = b9 = '';
+    function assignValue(opt, buttonNo) {
+        switch (buttonNo) {
+            case 1:
+                b1 = opt
+                break;
+            case 2:
+                b2 = opt
+                break;
+            case 3:
+                b3 = opt
+                break;
+
+            case 4:
+                b4 = opt
+                break;
+
+            case 5:
+                b5 = opt
+                break;
+
+            case 6:
+                b6 = opt
+                break;
+
+            case 7:
+                b7 = opt
+                break;
+
+            case 8:
+                b8 = opt
+                break;
+
+            case 9:
+                b9 = opt
+                break;
+
+            default:
+                alert('eeeee');
+        }
+
+    }
+    function putImg(val) {
+        if (inc === 10) {
+            location.reload();
+        }
+        if (clickedOnce.includes(val)) {
+            return;
+        }
+        inc++;
+        if (flag) {
+            document.getElementById("id" + val).innerHTML =
+                "<img src='./img/cross.jpg' height='90px' width='90px'>";
+            flag = false;
+            assignValue('X', val);
+
+        } else {
+            document.getElementById("id" + val).innerHTML =
+                "<img src='./img/round.jpg' height='90px' width='90px'>";
+            flag = true;
+            assignValue('O', val);
+        }
+        clickedOnce = val + "";
+        validate()
+    }
+    function winner(i) {
+
+        document.getElementById("result").innerHTML =
+            "<div><h1> " + i + " is the WINNER</h1>" +
+            "<button onmouseover='location.reload()'>RESET</button>" +
+            "</div><br><br>";
+        inc = 10;
+
+    }
+    function validate() {
+        var opts = ['X', 'O']
+        winFlag = false;
+        for (var i = 0; i < 2; i++) {
+            if (
+                (b1 == opts[i] && b2 == opts[i] && b3 == opts[i])
+                || (b4 == opts[i] && b5 == opts[i] && b6 == opts[i])
+                || (b7 == opts[i] && b8 == opts[i] && b9 == opts[i])
+                || (b1 == opts[i] && b4 == opts[i] && b7 == opts[i])
+                || (b2 == opts[i] && b5 == opts[i] && b8 == opts[i])
+                || (b1 == opts[i] && b5 == opts[i] && b9 == opts[i])
+                || (b3 == opts[i] && b5 == opts[i] && b7 == opts[i])
+                || (b3 == opts[i] && b6 == opts[i] && b9 == opts[i])) {
+                winFlag = true;
+                winner(opts[i]);
+            }
+        }
+        if (inc == 9 && !winFlag) {
+            document.getElementById("result").innerHTML =
+                "<div><h1> DRAW </h1>" +
+                "<button onmouseover='location.reload()'>RESET</button>" +
+                "</div>";
+            //document.getElementById("tbl").style.display ='none';            
+
+        }
+    }
+</script>
+
+<body>
+    <br><br>
+    <div id="result" align="center">
+
+    </div>
+
+    <table id='tbl' align='center' border="1">
+        <tr>
+            <td id='div1' onclick="putImg(1)">
+                <div id='id1'></div>
+            </td>
+            <td id='div2' onclick="putImg(2)">
+                <div id='id2'></div>
+            </td>
+            <td id='div3' onclick="putImg(3)">
+                <div id='id3'></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td id='div4' onclick="putImg(4)">
+                <div id='id4'></div>
+            </td>
+            <td id='div5' onclick="putImg(5)">
+                <div id='id5'></div>
+            </td>
+            <td id='div6' onclick="putImg(6)">
+                <div id='id6'></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td id='div7' onclick="putImg(7)">
+                <div id='id7'></div>
+            </td>
+            <td id='div8' onclick="putImg(8)">
+                <div id='id8'></div>
+            </td>
+            <td id='div9' onclick="putImg(9)">
+                <div id='id9'></div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
